@@ -1,0 +1,24 @@
+<h2 class="border-bottom my-4 pb-2"><%= @restaurant.name %></h2>
+
+<p>Adress: <%= @restaurant.address %></p>
+<p class="mb-4"><%= @restaurant.category.capitalize %></p>
+<h4 class="border-bottom my-4 pb-2">Reviews</h4>
+<ul class="list-group">
+  <% @restaurant.reviews.each do |review| %>
+    <li class="list-group-item">
+      <h5> <%= review.content %> </h5>
+      <p> Rating: <%= review.rating %></p>
+    </li>
+  <% end %>
+</ul>
+<h4 class="border-bottom my-4 pb-2">New Review</h4>
+<%= simple_form_for [@restaurant, @review] do |f| %>
+  <div class="form-group mt-3">
+    <%= f.label 'Your review' %>
+    <%= f.text_field :content, :class => 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.input :rating, :collection => [0, 1, 2, 3, 4, 5] %>
+  </div>
+    <%= f.submit :class => 'btn btn-primary mt-3'%>
+<% end %>
